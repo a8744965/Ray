@@ -71,7 +71,8 @@ namespace Ray.MongoHost
                     //servicecollection.PSQLConfigure();
                     servicecollection.AddSQLServerStorage(config =>
                     {
-                        config.ConnectionDict.Add("core_event", "Server=127.0.0.1,1433;Database=Ray;User Id=sa;Password=luohuazhiyu;Pooling=true;max pool size=20;");
+                        config.ConnectionDict.Add("core_event", "Server=127.0.0.1,1444;Database=Ray;User Id=sa;Password=a8744965;Pooling=true;max pool size=20;");
+                        //config.ConnectionDict.Add("core_event", "Server=127.0.0.1,1444;Database=Ray1;User Id=sa;Password=a8744965;Pooling=true;max pool size=20;");
                     });
                     servicecollection.AddSQLServerTxStorage(options =>
                     {

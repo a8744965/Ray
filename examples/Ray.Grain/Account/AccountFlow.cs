@@ -15,6 +15,7 @@ namespace Ray.Grain
         public Task EventHandler(AmountTransferEvent value, EventBase eventBase)
         {
             var toActor = GrainFactory.GetGrain<IAccount>(value.ToAccountId);
+            
             return toActor.AddAmount(value.Amount, new EventUID(eventBase.GetEventId(GrainId.ToString()), eventBase.Timestamp));
         }
         public Task EventHandler(AmountAddEvent evt)

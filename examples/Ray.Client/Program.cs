@@ -29,12 +29,13 @@ namespace Ray.Client
                         var times = int.Parse(Console.ReadLine());
                         var stopWatch = new Stopwatch();
                         stopWatch.Start();
-                        await Task.WhenAll(Enumerable.Range(0, times).Select(x => client.GetGrain<IAccount>(1).AddAmount(1000)));
+                        await Task.WhenAll(Enumerable.Range(0, times).Select(x => client.GetGrain<IAccount>(8).AddAmount(100)));
                         stopWatch.Stop();
                         Console.WriteLine($"{times }次操作完成，耗时:{stopWatch.ElapsedMilliseconds}ms");
                         await Task.Delay(200);
-                        Console.WriteLine($"余额为{await client.GetGrain<IAccountRep>(1).GetBalance()}");
-   
+                        Console.WriteLine($"账号：1，余额为{await client.GetGrain<IAccount>(8).GetBalance()}");
+                      //  Console.WriteLine($"账号：6，余额为{await client.GetGrain<IAccount>(9).GetBalance()}");
+
                     }
                     catch (Exception e)
                     {
@@ -55,7 +56,7 @@ namespace Ray.Client
                     var builder = new ClientBuilder()
                    .UseLocalhostClustering()
                    .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(IAccount).Assembly).WithReferences())
-                   .ConfigureLogging(logging => logging.AddConsole());
+                   .ConfigureLogging(logging => { logging.AddConsole(); logging.SetMinimumLevel(LogLevel.Error); });
                     client = builder.Build();
                     await client.Connect();
                     Console.WriteLine("Client successfully connect to silo host");
